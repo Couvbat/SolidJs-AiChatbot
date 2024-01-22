@@ -1,31 +1,45 @@
-import { createSignal } from 'solid-js';
-import ChatHistory from './components/ChatHistory/ChatHistory';
-import ChatInput from './components/ChatInput/ChatInput';
-import ApiKeyPopup from './components/ApiKeyPopup/ApiKeyPopup';
+import { createSignal } from "solid-js";
+import ChatHistory from "./components/ChatHistory/ChatHistory";
+import ChatInput from "./components/ChatInput/ChatInput";
+import ApiKeyPopup from "./components/ApiKeyPopup/ApiKeyPopup";
 
 function App() {
-  const [messages, setMessages] = createSignal([]);
-  const [showApiKeyPopup, setApiKeyPopup] = createSignal(false);
-  
-  // Handle message submission from chat input
-  const handleSubmit = async (message) => {
-    setMessages([...messages(), { type: 'user', content: message }]);
-    // Call your Laravel API endpoint here to get the API response
+  const [chatHistory, setChatHistory] = createSignal([]);
+  const [apiKey, setApiKey] = createSignal('');
+
+  const sendMessage = async (message) => {
+    // append the message to the chat history
+    setChatHistory([...chatHistory(), { author: 'user', text: message }]);
+
+    // make the API call and wait for the response
+    // for the sake of this example, we're using a placeholder
+    const response = await fetch(`https://api.mistral.ai/v1/chat/completions`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        'Authorization': `Bearer ${apiKey()}`
+      },
+      body: JSON.stringify({
+        query: message
+      })
+    });
+    const json = await response.json();
+
+    // append the bot's response to the chat history
+    setChatHistory([...chatHistory(), { author: 'bot', text: json.text }]);
   };
-  
-  // Handle API Key submission
-  const handleApiKeySubmit = (apiKey) => {
-    // Store the API Key securely
-    // You can use Web Storage API (localStorage/sessionStorage) or IndexedDB API based on your requirements
+
+  const getUserKey = async (userEnteredKey) => {
+    setApiKey(userEnteredKey);
   };
-  
+
   return (
-    <>
-      <button onClick={() => setApiKeyPopup(true)}>Set API Key</button>
-      {showApiKeyPopup() && <ApiKeyPopup onSubmit={handleApiKeySubmit} onClose={() => setApiKeyPopup(false)} />}
-      <ChatHistory messages={messages()} />
-      <ChatInput onSubmit={handleSubmit} />
-    </>
+    <div>
+      <ChatHistory chatHistory={chatHistory()} />
+      <ChatInput onSend={sendMessage} />
+      <ApiKeyPopup onKeyReceive={getUserKey} />
+    </div>
   );
 }
 
