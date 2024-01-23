@@ -1,28 +1,69 @@
-## Usage
+# <center>Projet Ai-ChatBot</center> <!-- omit in toc -->
+<center>Auteur : Jules Hemery</center>
+
+## Table des matières <!-- omit in toc -->
+- [Introduction](#introduction)
+- [Choix de technologie](#choix-de-technologie)
+  - [Backend](#backend)
+  - [Frontend](#frontend)
+- [Installation](#installation)
+- [Scripts disponibles](#scripts-disponibles)
+  - [`npm run dev`](#npm-run-dev)
+  - [`npm run build`](#npm-run-build)
+- [TODO](#todo)
+
+## Introduction
+
+Ce projet est une application web permettant de communiquer avec un chatbot. L'application est réalisée en SolidJS et utilise l'API de OpenAi ou de MistralAi pour générer les réponses du chatbot.
+
+Ce projet a pour but de me faire découvrir le framework SolidJS ainsi que les API de OpenAi et MistralAi, et de me permettre de comparer les deux AI.
+
+## Choix de technologie
+
+- SolidJS
+- Vite
+- TailwindCSS (pas encore implémenté)
+
+### Backend
+
+Pour l'instant l'appli n'a aucun backend, mais je compte en ajouter un pour pouvoir sauvegarder les données de l'utilisateur et les récupérer sur n'importe quel appareil.
+
+### Frontend
+
+J'ai choisi de réaliser ce projet en utilisant le framework SolidJS avec TailwindCSS afin d'apprendre le framework et de pouvoir le comparer à React.
+
+J'utilise Vite pour le bundling et le développement de l'application.
+
+## Installation
 
 ```bash
+$ git clone https://github.com/Couvbat/SolidJs-AiChatbot.git
+$ cd SolidJs-AiChatbot
 $ npm install # or pnpm install or yarn install
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## Scripts disponibles 
 
-## Available Scripts
-
-In the project directory, you can run:
+Dans le répertoire du projet, vous pouvez exécuter :
 
 ### `npm run dev`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+Exécute l'application en mode développement.
+Ouvrez [http://localhost:5173](http://localhost:5173) pour la visualiser dans le navigateur.
 
 ### `npm run build`
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+Build l'application pour la production dans le dossier `dist`.
+Il bundle correctement Solid en mode production et optimise la compilation pour obtenir les meilleures performances.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Le build est minifié et les noms de fichiers incluent les hashs.
 
-## Deployment
+## TODO
 
-Learn more about deploying your application with the [documentations](https://vitejs.dev/guide/static-deploy.html)
+[x] - Basic Ui
+[x] - Working api calls to OpenAi and Mistral
+[] - Basic chat functionality
+[] - Easy switch between models and chatbots
+[x] - Saves Api key in local storage (not secure but fine for now)
+[] - Saves chat history in local storage
+[] - multiple chat instances
