@@ -60,10 +60,10 @@ Le build est minifié et les noms de fichiers incluent les hashs.
 
 ## TODO
 
-[x] - Basic Ui
-[x] - Working api calls to OpenAi and Mistral
-[] - Basic chat functionality
-[] - Easy switch between models and chatbots
-[x] - Saves Api key in local storage (not secure but fine for now)
-[] - Saves chat history in local storage
-[] - multiple chat instances
+[x] Basic Ui
+[x] Working api calls to OpenAi and Mistral
+[ ] Basic chat functionality
+[ ] Easy switch between models and chatbots
+[x] Saves Api key in local storage (not secure but fine for now)
+[ ] Saves chat history in local storage
+[ ] multiple chat instances
