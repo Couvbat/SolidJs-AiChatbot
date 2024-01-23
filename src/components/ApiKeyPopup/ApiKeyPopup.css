@@ -15,7 +15,7 @@
 .ApiKeyPopup {
     background: grey;
     color: white;
-    padding: 20px;
+    padding: 50px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     text-align: center;
@@ -23,20 +23,18 @@
 
 .ApiKeyPopup form {
     max-width: 300px;
-    margin: 0 auto;
 }
 
 .ApiKeyPopup button {
     color: white;
     display: block;
     width: 100%;
-    margin-bottom: 10px;
 }
 .ApiKeyPopup input {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 button {
