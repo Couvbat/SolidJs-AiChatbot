@@ -41,7 +41,8 @@ function App() {
 
         // Create the request payload
         const requestPayload = {
-            "model": "gpt-3.5-turbo",
+            "model": "gpt-3.5-turbo", //use this for OpenAI
+            // "model": "mistral-tiny", //use this for Mistral
             "messages": messages(),
             "temperature": 0.7,
             "top_p": 1,
@@ -54,11 +55,13 @@ function App() {
         try {
             console.log('Sending message to the bot:', requestPayload)
             //TODO: Make the API URL and ApiKey a variable so we can easily change between openai and mistral
-            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            const response = await fetch('https://api.openai.com/v1/chat/completions', { //use this for OpenAI
+            // const response = await fetch('https://api.mistral.ai/v1/chat/completions', { //use this for Mistral
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', //(usually default for fetch)
-                    'Authorization': `Bearer ${apiKeys().openai}`, // Use Mistral API key from state
+                    'Authorization': `Bearer ${apiKeys().openai}`, // Use OpenAi API key from state
+                    'Authorization': `Bearer ${apiKeys().mistral}`, // Use Mistral API key from state
                 },
                 body: JSON.stringify(requestPayload)
             });
