@@ -26,18 +26,17 @@
     margin: 0 auto;
 }
 
-.ApiKeyPopup label,
 .ApiKeyPopup button {
     color: white;
     display: block;
     width: 100%;
     margin-bottom: 10px;
-    background-color: w;
 }
 .ApiKeyPopup input {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin-bottom: 10px;
 }
 
 button {
