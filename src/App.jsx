@@ -1,6 +1,5 @@
 // App.js
 import { Show, createSignal } from 'solid-js';
-import axios from 'axios';
 import ChatHistory from './components/ChatHistory/ChatHistory';
 import ChatInput from './components/ChatInput/ChatInput';
 import './App.css';
