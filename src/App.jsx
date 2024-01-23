@@ -56,12 +56,12 @@ function App() {
             console.log('Sending message to the bot:', requestPayload)
             //TODO: Make the API URL and ApiKey a variable so we can easily change between openai and mistral
             const response = await fetch('https://api.openai.com/v1/chat/completions', { //use this for OpenAI
+            method: 'POST',
             // const response = await fetch('https://api.mistral.ai/v1/chat/completions', { //use this for Mistral
-                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', //(usually default for fetch)
                     'Authorization': `Bearer ${apiKeys().openai}`, // Use OpenAi API key from state
-                    'Authorization': `Bearer ${apiKeys().mistral}`, // Use Mistral API key from state
+                    // 'Authorization': `Bearer ${apiKeys().mistral}`, // Use Mistral API key from state
                 },
                 body: JSON.stringify(requestPayload)
             });
