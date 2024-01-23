@@ -1,46 +1,102 @@
-import { createSignal } from "solid-js";
-import ChatHistory from "./components/ChatHistory/ChatHistory";
-import ChatInput from "./components/ChatInput/ChatInput";
-import ApiKeyPopup from "./components/ApiKeyPopup/ApiKeyPopup";
+// App.js
+import { Show, createSignal } from 'solid-js';
+import axios from 'axios';
+import ChatHistory from './components/ChatHistory/ChatHistory';
+import ChatInput from './components/ChatInput/ChatInput';
+import './App.css';
+import ApiKeyPopup from './components/ApiKeyPopup/ApiKeyPopup';
 
 function App() {
-  const [chatHistory, setChatHistory] = createSignal([]);
-  const [apiKey, setApiKey] = createSignal('');
-
-  const sendMessage = async (message) => {
-    // append the message to the chat history
-    setChatHistory([...chatHistory(), { author: 'user', text: message }]);
-
-    // make the API call and wait for the response
-    // for the sake of this example, we're using a placeholder
-    const response = await fetch(`https://api.mistral.ai/v1/chat/completions`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'accept': 'application/json',
-        'Authorization': `Bearer ${apiKey()}`
-      },
-      body: JSON.stringify({
-        query: message
-      })
+    const [messages, setMessages] = createSignal([]);
+    const [apiKeys, setApiKeys] = createSignal({
+        openai: '',
+        mistral: ''
     });
-    const json = await response.json();
 
-    // append the bot's response to the chat history
-    setChatHistory([...chatHistory(), { author: 'bot', text: json.text }]);
-  };
+    // Load the API Keys from session storage on initialization
+    const loadApiKeys = () => {
+        const loadedKeys = {
+            openai: sessionStorage.getItem('openai_api_key') || '',
+            mistral: sessionStorage.getItem('mistral_api_key') || ''
+        };
+        setApiKeys(loadedKeys);
+        console.log('Loaded API keys:', loadedKeys);
+    };
 
-  const getUserKey = async (userEnteredKey) => {
-    setApiKey(userEnteredKey);
-  };
+    // Save the API Keys to session storage
+    const saveApiKeys = (openaiKey, mistralKey) => {
+        sessionStorage.setItem('openai_api_key', openaiKey);
+        sessionStorage.setItem('mistral_api_key', mistralKey);
+        setApiKeys({ openai: openaiKey, mistral: mistralKey });
+        setShowApiKeyPopup(false);
+        console.log('Saved API keys:', apiKeys());
+    };
 
-  return (
-    <div>
-      <ChatHistory chatHistory={chatHistory()} />
-      <ChatInput onSend={sendMessage} />
-      <ApiKeyPopup onKeyReceive={getUserKey} />
-    </div>
-  );
+
+    // Make API request here
+    const sendMessageToBot = async (newMessage) => {
+
+        // Save the message to the state
+        setMessages([...messages(), { role: 'user', content: newMessage }]);
+
+        // Create the request payload
+        const requestPayload = {
+            "model": "gpt-3.5-turbo",
+            "messages": messages(),
+            "temperature": 0.7,
+            "top_p": 1,
+            "max_tokens": 2048,
+            "stream": false,
+            // "safe_prompt": false,
+            // "random_seed": null
+        };
+
+        try {
+            console.log('Sending message to the bot:', requestPayload)
+            //TODO: Make the API URL and ApiKey a variable so we can easily change between openai and mistral
+            const response = await fetch('https://api.openai.com/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json', //(usually default for fetch)
+                    'Authorization': `Bearer ${apiKeys().openai}`, // Use Mistral API key from state
+                },
+                body: JSON.stringify(requestPayload)
+            });
+
+            if (response.ok) {
+                const responseData = await response.json();
+                console.log('Response from the bot:', responseData)
+                // Handle the response from the AI (you may need to adapt this depending on response structure)
+                const botReply = responseData.choices[0].message;
+                setMessages([...messages(), { role: botReply.role, content: botReply.content }]);
+            }
+        } catch (error) {
+            // Handle error
+            console.error('An error occurred while sending a message to the bot:', error);
+        }
+    };
+
+    const handleNewMessage = (newMessage) => {
+        sendMessageToBot(newMessage);
+    };
+
+    // Call loadApiKeys on initialization
+    loadApiKeys();
+
+    return (
+        <div class="App">
+            <header class="App-header">
+                <h1>AI Chat UI</h1>
+                {/* You will create your API Keys Popup and attach saveApiKeys function */}
+            </header>
+            <ChatHistory messages={messages()} />
+            <ChatInput onNewMessage={handleNewMessage} />
+
+            <Show when={!apiKeys().openai || !apiKeys().mistral}>
+                <ApiKeyPopup onSaveKeys={saveApiKeys} onClose={() => setShowApiKeyPopup(false)} />
+            </Show>
+        </div>
+    );
 }
 
 export default App;

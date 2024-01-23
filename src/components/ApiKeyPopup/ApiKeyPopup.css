@@ -1,0 +1,38 @@
+/* components/ApiKeyPopup/ApiKeyPopup.css */
+.ApiKeyPopup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.ApiKeyPopup {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.ApiKeyPopup form {
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.ApiKeyPopup label,
+.ApiKeyPopup input,
+.ApiKeyPopup button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+button {
+    cursor: pointer;
+}

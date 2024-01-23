@@ -1,25 +1,32 @@
-import { createSignal } from "solid-js";
+// components/ApiKeyPopup/ApiKeyPopup.jsx
+import { createSignal } from 'solid-js';
+import './ApiKeyPopup.css';
 
-function ApiKeyPopup({ onKeyReceive }) {
-  const [apiKey, setApiKey] = createSignal('');
+const ApiKeyPopup = (props) => {
+  const [openaiKey, setOpenaiKey] = createSignal('');
+  const [mistralKey, setMistralKey] = createSignal('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onKeyReceive(apiKey());
-    // After taking the key clear the input box
-    setApiKey('');
+  const saveKeysAndClose = () => {
+    props.onSaveKeys(openaiKey(), mistralKey());
+    props.onClose();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input type="text"
-        value={apiKey()}
-        onInput={e => setApiKey(e.target.value)}
-        placeholder='Enter your API Key here'
-      />
-      <button type="submit">Submit</button>
-    </form>
+    <div class="ApiKeyPopup-overlay">
+      <div class="ApiKeyPopup">
+        <h2>Enter API Keys</h2>
+        <form onSubmit={saveKeysAndClose}>
+          <label for="openai_key">OpenAI API Key:</label>
+          <input id="openai_key" type="text" value={openaiKey()} onInput={(e) => setOpenaiKey(e.target.value)} />
+
+          <label for="mistral_key">Mistral API Key:</label>
+          <input id="mistral_key" type="text" value={mistralKey()} onInput={(e) => setMistralKey(e.target.value)} />
+
+          <button type="submit">Save</button>
+        </form>
+      </div>
+    </div>
   );
-}
+};
 
 export default ApiKeyPopup;

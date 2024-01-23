@@ -1,16 +1,15 @@
-import { Show } from "solid-js";
-import ChatMessage from "../ChatMessage/ChatMessage";
+// ChatHistory.jsx
+import ChatMessage from '../ChatMessage/ChatMessage';
+import './ChatHistory.css';
 
-function ChatHistory({ messages }) {
-  return (
-    <Show when={messages}>
-      <div>
-        {messages.map((message, index) => (
-          <ChatMessage key={index} type={message.type} content={message.content} />
-        ))}
-      </div>
-    </Show>
-  );
-}
+const ChatHistory = (props) => {
+    return (
+        <div class="ChatHistory">
+            {props.messages.map((message, index) => (
+                <ChatMessage key={index} content={message.content} role={message.role} />
+            ))}
+        </div>
+    );
+};
 
 export default ChatHistory;

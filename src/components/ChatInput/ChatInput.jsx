@@ -1,20 +1,24 @@
+// ChatInput.jsx
 import { createSignal } from 'solid-js';
+import './ChatInput.css';
 
-function ChatInput({ onSubmit }) {
-  const [inputValue, setInputValue] = createSignal('');
+const ChatInput = (props) => {
+    const [message, setMessage] = createSignal('');
 
-  const handleMessageSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(inputValue());
-    setInputValue('');
-  };
+    const sendMessage = (event) => {
+        event.preventDefault();
+        if (message()) {
+            props.onNewMessage(message());
+            setMessage('');
+        }
+    };
 
-  return (
-    <form onSubmit={handleMessageSubmit}>
-      <input type="text" value={inputValue()} onInput={(e) => setInputValue(e.target.value)} />
-      <button type="submit">Send</button>
-    </form>
-  );
-}
+    return (
+        <form class="ChatInput" onSubmit={sendMessage}>
+            <input type="text" value={message()} onInput={(e) => setMessage(e.target.value)} />
+            <button type="submit">Send</button>
+        </form>
+    );
+};
 
 export default ChatInput;

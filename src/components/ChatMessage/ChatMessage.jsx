@@ -1,9 +1,13 @@
-function ChatMessage({ type, content }) {
+// ChatMessage.jsx
+import './ChatMessage.css';
+
+const ChatMessage = (props) => {
+  const messageClass = `ChatMessage ${props.role === 'user' ? 'user' : 'assistant'}`;
   return (
-    <div className={type}>
-      <span>{content}</span>
-    </div>
+      <div class={messageClass}>
+          <p>{props.content}</p>
+      </div>
   );
-}
+};
 
 export default ChatMessage;

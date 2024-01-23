@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "axios": "^1.6.5",
     "solid-js": "^1.8.7"
   },
   "devDependencies": {
