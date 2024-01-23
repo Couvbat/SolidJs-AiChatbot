@@ -2,8 +2,8 @@
 import { Show, createSignal } from 'solid-js';
 import ChatHistory from './components/ChatHistory/ChatHistory';
 import ChatInput from './components/ChatInput/ChatInput';
-import './App.css';
 import ApiKeyPopup from './components/ApiKeyPopup/ApiKeyPopup';
+import './App.css';
 
 function App() {
     const [messages, setMessages] = createSignal([]);
@@ -38,6 +38,8 @@ function App() {
         // Save the message to the state
         setMessages([...messages(), { role: 'user', content: newMessage }]);
 
+        //TODO : Make the model a variable so we can easily change between openai's and mistral's models
+
         // Create the request payload
         const requestPayload = {
             "model": "gpt-3.5-turbo", //use this for OpenAI
@@ -52,11 +54,12 @@ function App() {
         };
 
         try {
-            console.log('Sending message to the bot:', requestPayload)
             //TODO: Make the API URL and ApiKey a variable so we can easily change between openai and mistral
+
+            console.log('Sending message to the bot:', requestPayload)
             const response = await fetch('https://api.openai.com/v1/chat/completions', { //use this for OpenAI
-            method: 'POST',
-            // const response = await fetch('https://api.mistral.ai/v1/chat/completions', { //use this for Mistral
+                method: 'POST',
+                // const response = await fetch('https://api.mistral.ai/v1/chat/completions', { //use this for Mistral
                 headers: {
                     'Content-Type': 'application/json', //(usually default for fetch)
                     'Authorization': `Bearer ${apiKeys().openai}`, // Use OpenAi API key from state
