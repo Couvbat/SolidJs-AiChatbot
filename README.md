@@ -1,7 +1,9 @@
-# <center>Projet Ai-ChatBot</center> <!-- omit in toc -->
-<center>Auteur : Jules Hemery</center>
+# Projet Ai-ChatBot <!-- omit in toc -->
+
+Auteur : Jules Hemery
 
 ## Table des matières <!-- omit in toc -->
+
 - [Introduction](#introduction)
 - [Choix de technologie](#choix-de-technologie)
   - [Backend](#backend)
@@ -20,9 +22,10 @@ Ce projet a pour but de me faire découvrir le framework SolidJS ainsi que les A
 
 ## Choix de technologie
 
+- node.js
 - SolidJS
 - Vite
-- TailwindCSS (pas encore implémenté)
+- TailwindCSS
 
 ### Backend
 
@@ -36,11 +39,6 @@ J'utilise Vite pour le bundling et le développement de l'application.
 
 ## Installation
 
-```bash
-$ git clone https://github.com/Couvbat/SolidJs-AiChatbot.git
-$ cd SolidJs-AiChatbot
-$ npm install # or pnpm install or yarn install
-```
 
 ## Scripts disponibles 
 
@@ -60,15 +58,15 @@ Le build est minifié et les noms de fichiers incluent les hashs.
 
 ## TODO
 
-[x] Basic Ui
-[x] Working api calls to OpenAi and Mistral
-[x] Basic chat functionality
-[x] Saves Api key in local storage (not secure but fine for now)
-[ ] Easy switch between models
-[ ] model parameters
-[ ] Saves chat history
-[ ] multiple chat instances
-[ ] class exctraction
-[ ] better ui
+- [x] Basic Ui
+- [x] Working api calls to OpenAi and Mistral
+- [x] Basic chat functionality
+- [x] Saves Api key in local storage (not secure but fine for now)
+- [ ] Easy switch between models
+- [ ] model parameters
+- [ ] Saves chat history
+- [ ] multiple chat instances
+- [ ] class exctraction
+- [ ] better ui
 
 Back-end ?
