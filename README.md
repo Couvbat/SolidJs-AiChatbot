@@ -62,8 +62,13 @@ Le build est minifié et les noms de fichiers incluent les hashs.
 
 [x] Basic Ui
 [x] Working api calls to OpenAi and Mistral
-[ ] Basic chat functionality
-[ ] Easy switch between models and chatbots
+[x] Basic chat functionality
 [x] Saves Api key in local storage (not secure but fine for now)
-[ ] Saves chat history in local storage
+[ ] Easy switch between models
+[ ] model parameters
+[ ] Saves chat history
 [ ] multiple chat instances
+[ ] class exctraction
+[ ] better ui
+
+Back-end ?
