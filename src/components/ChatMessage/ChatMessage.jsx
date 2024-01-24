@@ -1,8 +1,6 @@
 // ChatMessage.jsx
-import './ChatMessage.css';
-
 const ChatMessage = (props) => {
-  const messageClass = `ChatMessage ${props.role === 'user' ? 'user' : 'assistant'}`;
+  const messageClass = `bg-slate-800 text-white border rounded-md m-4 p-2 shadow-ms ${props.role === 'user' ? 'text-right' : 'text-left'}`;
   return (
     <div class={messageClass}>
       <p>{props.content}</p>
