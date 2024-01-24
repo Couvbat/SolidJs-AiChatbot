@@ -1,6 +1,5 @@
 // components/ApiKeyPopup/ApiKeyPopup.jsx
 import { createSignal } from 'solid-js';
-import './ApiKeyPopup.css';
 
 const ApiKeyPopup = (props) => {
   const [openaiKey, setOpenaiKey] = createSignal('');
@@ -12,8 +11,8 @@ const ApiKeyPopup = (props) => {
   };
 
   return (
-    <div class="ApiKeyPopup-overlay">
-      <div class="ApiKeyPopup">
+    <div class="">
+      <div class="">
         <h2>Enter API Keys</h2>
         <form onSubmit={saveKeysAndClose}>
           <label for="openai_key">OpenAI API Key:</label>

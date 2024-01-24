@@ -1,6 +1,6 @@
 // ChatInput.jsx
 import { createSignal } from 'solid-js';
-import './ChatInput.css';
+
 
 const ChatInput = (props) => {
 	const [message, setMessage] = createSignal('');
@@ -14,7 +14,7 @@ const ChatInput = (props) => {
 	};
 
 	return (
-		<form class="ChatInput" onSubmit={sendMessage}>
+		<form class="" onSubmit={sendMessage}>
 			<input type="text" value={message()} onInput={(e) => setMessage(e.target.value)} />
 			<button type="submit">Send</button>
 		</form>
