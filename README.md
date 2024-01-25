@@ -39,6 +39,11 @@ J'utilise Vite pour le bundling et le développement de l'application.
 
 ## Installation
 
+```bash
+$ git clone https://github.com/Couvbat/SolidJs-AiChatbot.git
+$ cd SolidJs-AiChatbot
+$ npm i
+```
 
 ## Scripts disponibles 
 
