@@ -27,7 +27,6 @@ function App() {
         sessionStorage.setItem('openai_api_key', openaiKey);
         sessionStorage.setItem('mistral_api_key', mistralKey);
         setApiKeys({ openai: openaiKey, mistral: mistralKey });
-        setShowApiKeyPopup(false);
         console.log('Saved API keys:', apiKeys());
     };
 
@@ -88,7 +87,7 @@ function App() {
                 <h1 class="text-white text-center text-4xl font-bold">AI Chat UI</h1>
             </header>
 
-            <Show when={!apiKeys().openai || !apiKeys().mistral}>
+            <Show when={!apiKeys().openai && !apiKeys().mistral}>
                 <ApiKeyPopup onSaveKeys={saveApiKeys}/>
             </Show>
 
