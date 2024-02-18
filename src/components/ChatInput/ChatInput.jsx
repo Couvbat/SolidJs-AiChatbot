@@ -14,24 +14,24 @@ const ChatInput = (props) => {
 
   return (
     <>
-    <hr/>
-    <form
-      class="flex flex-row w-full md:w-9/12 lg:w-1/2 p-8 mx-auto text-center"
-      onSubmit={sendMessage}
-    >
-      <input
-        class="p-4 border rounded-s-full w-full resize-y"
-        type="textarea"
-        value={message()}
-        onInput={(e) => setMessage(e.target.value)}
-      />
-      <button
-        class="p-4 text-white border rounded-e-full hover:text-black hover:bg-white"
-        type="submit"
+      <hr />
+      <form
+        class="flex flex-row w-full md:w-9/12 lg:w-1/2 p-8 mx-auto text-center"
+        onSubmit={sendMessage}
       >
-        Send
-      </button>
-    </form>
+        <input
+          class="p-4 text-xl border rounded-s-full w-full resize-y"
+          type="textarea"
+          value={message()}
+          onInput={(e) => setMessage(e.target.value)}
+        />
+        <button
+          class="p-4 text-white text-xl border rounded-e-full hover:text-black hover:bg-white"
+          type="submit"
+        >
+          Send
+        </button>
+      </form>
     </>
   );
 };

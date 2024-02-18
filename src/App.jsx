@@ -15,8 +15,8 @@ function App() {
     mistral: "",
   });
 
-  const [selectedApi, setSelectedApi] = createSignal("mistral");
-  const [selectedModel, setSelectedModel] = createSignal("mistral-tiny");
+  const [selectedApi, setSelectedApi] = createSignal();
+  const [selectedModel, setSelectedModel] = createSignal();
 
   // Load the API Keys from session storage on initialization
   const loadApiKeys = () => {
@@ -98,46 +98,51 @@ function App() {
         <h1 class="p-4 text-white text-center text-4xl font-bold">
           AI Chat UI
         </h1>
+
         <hr />
 
-        <div class="text-center p-2">
+        <div class="text-center text-xl p-2">
           <label for="API" class="text-white">
-            Select API:
+            Select API :
           </label>
           <select
             name="API"
             value={selectedApi()}
-            onChange={(e) => setSelectedApi(e.target.value)}
+            onChange={(e) => {
+              setSelectedApi(e.target.value);
+              setSelectedModel("");
+            }}
           >
             <option value="openai">OpenAI</option>
             <option value="mistral">MistralAi</option>
           </select>
         </div>
-
-        <div class="text-center p-2">
-          <label for="model" class="text-white">
-            Select Model:
-          </label>
-          <select
-            name="model"
-            value={selectedModel()}
-            onChange={(e) => setSelectedModel(e.target.value)}
-          >
-            {selectedApi() === "openai" && (
-              <>
-                <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
-                <option value="gpt-4">GPT-4</option>
-              </>
-            )}
-            {selectedApi() === "mistral" && (
-              <>
-                <option value="mistral-tiny">Mistral Tiny</option>
-                <option value="mistral-small">Mistral Small</option>
-                <option value="mistral-medium">Mistral Medium</option>
-              </>
-            )}
-          </select>
-        </div>
+        <Show when={selectedApi()}>
+          <div class="text-center text-xl p-2">
+            <label for="model" class="text-white">
+              Select Model :
+            </label>
+            <select
+              name="model"
+              value={selectedModel()}
+              onChange={(e) => setSelectedModel(e.target.value)}
+            >
+              {selectedApi() === "openai" && (
+                <>
+                  <option value="gpt-3.5-turbo">GPT-3.5 Turbo</option>
+                  <option value="gpt-4">GPT-4</option>
+                </>
+              )}
+              {selectedApi() === "mistral" && (
+                <>
+                  <option value="mistral-tiny">Mistral Tiny</option>
+                  <option value="mistral-small">Mistral Small</option>
+                  <option value="mistral-medium">Mistral Medium</option>
+                </>
+              )}
+            </select>
+          </div>
+        </Show>
       </header>
 
       <Show when={!apiKeys().openai && !apiKeys().mistral}>
