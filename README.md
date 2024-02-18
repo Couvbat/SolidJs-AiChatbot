@@ -68,7 +68,7 @@ Le build est minifié et les noms de fichiers incluent les hashs.
 - [x] Working api calls to OpenAi and Mistral
 - [x] Basic chat functionality
 - [x] Save Api key in cookies
-- [ ] Easy switch between models
+- [x] Easy switch between models
 - [ ] model parameters
 - [ ] Saves chat history
 - [ ] multiple chat instances
