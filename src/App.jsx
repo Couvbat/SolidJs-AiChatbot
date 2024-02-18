@@ -21,8 +21,8 @@ function App() {
   // Load the API Keys from session storage on initialization
   const loadApiKeys = () => {
     const loadedKeys = {
-      openai: sessionStorage.getItem("openai_api_key") || "",
-      mistral: sessionStorage.getItem("mistral_api_key") || "",
+      openai: Cookies.get("openai_api_key") || "",
+      mistral: Cookies.get("mistral_api_key") || "",
     };
     setApiKeys(loadedKeys);
     console.log("Loaded API keys:", loadedKeys);
