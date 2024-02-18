@@ -26,6 +26,7 @@ Ce projet a pour but de me faire découvrir le framework SolidJS ainsi que les A
 - SolidJS
 - Vite
 - TailwindCSS
+- js-cookie
 
 ### Backend
 
@@ -66,7 +67,7 @@ Le build est minifié et les noms de fichiers incluent les hashs.
 - [x] Basic Ui
 - [x] Working api calls to OpenAi and Mistral
 - [x] Basic chat functionality
-- [x] Saves Api key in local storage (not secure but fine for now)
+- [x] Save Api key in cookies
 - [ ] Easy switch between models
 - [ ] model parameters
 - [ ] Saves chat history
