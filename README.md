@@ -71,6 +71,8 @@ Le build est minifié et les noms de fichiers incluent les hashs.
 - [x] Easy switch between models
 - [ ] model parameters
 - [ ] Saves chat history
+- [ ] delete chat history
+- [ ] edit messages
 - [ ] multiple chat instances
 - [ ] class exctraction
 - [ ] better ui

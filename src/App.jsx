@@ -149,7 +149,7 @@ function App() {
         <ApiKeyPopup onSaveKeys={saveApiKeys} />
       </Show>
 
-      <div class="w-full md:w-9/12 lg:w-1/2 h-full mx-auto border rounded-xl mb-8 overflow-y-scroll overflow-hidden">
+      <div class="w-full md:w-9/12 lg:w-1/2 h-full min-h-96 mx-auto border rounded-xl mb-8 overflow-y-scroll overflow-hidden">
         /
         {messages().map((message) => (
           <ChatMessage
