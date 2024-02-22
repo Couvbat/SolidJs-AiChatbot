@@ -45,6 +45,7 @@ J'utilise Vite pour le bundling et le développement de l'application.
 - [Git](https://git-scm.com/download/win)
 - [Node](https://nodejs.org/en/download/)
 
+Dans un terminal ouvert à la racine de votre serveur, executer ces commandes :
 
 ```bash
 $ git clone https://github.com/Couvbat/SolidJs-AiChatbot.git
