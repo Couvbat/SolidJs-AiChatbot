@@ -48,9 +48,9 @@ J'utilise Vite pour le bundling et le développement de l'application.
 Dans un terminal ouvert à la racine de votre serveur, executer ces commandes :
 
 ```bash
-$ git clone https://github.com/Couvbat/SolidJs-AiChatbot.git
-$ cd SolidJs-AiChatbot
-$ npm i
+git clone https://github.com/Couvbat/SolidJs-AiChatbot.git
+cd SolidJs-AiChatbot
+npm i
 ```
 
 ## Scripts disponibles 
