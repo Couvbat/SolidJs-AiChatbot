@@ -33,6 +33,7 @@ const ChatInput = (props) => {
         <button
           class="mx-4 my-auto p-4 text-white text-xl border rounded max-h-24 hover:text-black hover:bg-white"
           type="submit"
+          disabled={!props.selectedModel() && !message()}
         >
           Send
         </button>

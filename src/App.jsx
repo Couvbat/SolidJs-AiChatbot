@@ -1,6 +1,3 @@
-/* This code snippet is a React component named `App` written in SolidJS. Here's a breakdown of what
-the code is doing: */
-// App.js
 import { Show, createSignal } from "solid-js";
 import Cookies from "js-cookie";
 
@@ -36,6 +33,11 @@ function App() {
     console.log("Saved API keys:", apiKeys());
   };
 
+  const getApiUrl = () => {
+    return selectedApi() === "openai"
+      ? "https://api.openai.com/v1/chat/completions"
+      : "https://api.mistral.ai/v1/chat/completions";
+  };
   // Make API request here
   const sendMessageToBot = async (newMessage) => {
     // Save the message to the state
@@ -53,11 +55,9 @@ function App() {
 
     try {
       console.log("Sending message to the bot:", requestPayload);
-      const response = await fetch(
+      const response = await fetch(getApiUrl(),
         // Use the selected API and model
-        selectedApi() === "openai"
-          ? "https://api.openai.com/v1/chat/completions"
-          : "https://api.mistral.ai/v1/chat/completions",
+        
         {
           method: "POST",
           headers: {
@@ -70,10 +70,9 @@ function App() {
         }
       );
 
-      if (response.ok) {
+      if (response.ok) {// Handle the response from the AI model
         const responseData = await response.json();
         console.log("Response from the bot:", responseData);
-        // Handle the response from the AI (you may need to adapt this depending on response structure)
         const botReply = responseData.choices[0].message;
         setMessages([
           ...messages(),
@@ -146,7 +145,7 @@ function App() {
       </header>
 
       <Show when={!apiKeys().openai && !apiKeys().mistral}>
-        <ApiKeyPopup onSaveKeys={saveApiKeys} />
+        <ApiKeyPopup onSaveKeys={saveApiKeys} onClose={loadApiKeys} />
       </Show>
 
       <div class="w-full md:w-9/12 lg:w-1/2 h-full min-h-96 mx-auto border rounded-xl mb-8 overflow-y-scroll overflow-hidden">
@@ -159,7 +158,7 @@ function App() {
           />
         ))}
       </div>
-      <ChatInput onNewMessage={sendMessageToBot} />
+      <ChatInput onNewMessage={sendMessageToBot} selectedModel={selectedModel}/>
     </div>
   );
 }
