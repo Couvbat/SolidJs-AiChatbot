@@ -19,12 +19,6 @@ const ChatInput = (props) => {
         class="flex flex-row w-full md:w-9/12 lg:w-1/2 p-8 mx-auto text-center"
         onSubmit={sendMessage}
       >
-        {/* <input
-          class="p-4 text-xl border rounded-s-full w-full"
-          type="textarea"
-          value={message()}
-          onInput={(e) => setMessage(e.target.value)}
-        /> */}
         <textarea
           class="p-4 text-xl border rounded w-full"
           value={message()}
