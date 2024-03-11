@@ -52,7 +52,7 @@ function App() {
     // Create the request payload
     const requestPayload = {
       model: selectedModel(), // Use the selected model
-      messages: messages(),
+      messages: messages(), // Append all messages to the request
       temperature: 0.7,
       top_p: 1,
       max_tokens: 4096,
@@ -63,8 +63,6 @@ function App() {
       console.log("Sending message to the bot:", requestPayload);
       const response = await fetch(
         getApiUrl(),
-        // Use the selected API and model
-
         {
           method: "POST",
           headers: {
@@ -96,7 +94,7 @@ function App() {
     }
   };
 
-  // Call loadApiKeys on initialization
+  // Call loadApiKeys on first render
   loadApiKeys();
 
   return (
