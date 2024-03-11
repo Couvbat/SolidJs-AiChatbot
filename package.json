@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "js-cookie": "^3.0.5",
-    "solid-js": "^1.8.7"
+    "solid-js": "^1.8.7",
+    "solid-markdown": "^2.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.17",
