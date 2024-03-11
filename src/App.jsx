@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 import Cookies from "js-cookie";
-import { TbKey, TbMessage, TbSettings } from "solid-icons/tb";
+import { TbKey, TbMessage, TbAdjustments } from "solid-icons/tb";
 
 import ChatInput from "./components/ChatInput/ChatInput";
 import ChatMessage from "./components/ChatMessage/ChatMessage";
@@ -28,7 +28,7 @@ function App() {
     console.log("API keys:", openaiApiKey, mistralApiKey);
   };
 
-  const [selectedApi, setSelectedApi] = createSignal();
+  const [selectedApi, setSelectedApi] = createSignal("mistral");
   const [selectedModel, setSelectedModel] = createSignal();
 
   const getApiUrl = () => {
@@ -110,7 +110,7 @@ function App() {
 
         {/* Settings */}
         <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
-          <TbSettings size={28} />
+          <TbAdjustments size={28} />
         </div>
       </aside>
 

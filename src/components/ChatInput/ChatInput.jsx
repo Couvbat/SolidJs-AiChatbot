@@ -1,5 +1,6 @@
 // ChatInput.jsx
 import { createSignal } from "solid-js";
+import {TbSend} from 'solid-icons/tb';
 
 const ChatInput = (props) => {
   const [message, setMessage] = createSignal("");
@@ -27,7 +28,7 @@ const ChatInput = (props) => {
         type="submit"
         disabled={!props.selectedModel() && message()}
       >
-        Send
+        <TbSend size={28} />
       </button>
     </form>
   );
