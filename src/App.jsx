@@ -1,6 +1,6 @@
 import { createSignal } from "solid-js";
 import Cookies from "js-cookie";
-import { TbBrandSolidjs } from "solid-icons/tb";
+import { TbKey, TbMessage, TbSettings } from "solid-icons/tb";
 
 import ChatInput from "./components/ChatInput/ChatInput";
 import ChatMessage from "./components/ChatMessage/ChatMessage";
@@ -25,6 +25,7 @@ function App() {
   // Callback function to be called from ApiKeyPopup
   const handleApiKeysUpdated = (openaiApiKey, mistralApiKey) => {
     setApiKeys({ openai: openaiApiKey, mistral: mistralApiKey });
+    console.log("API keys:", openaiApiKey, mistralApiKey);
   };
 
   const [selectedApi, setSelectedApi] = createSignal();
@@ -97,49 +98,19 @@ function App() {
       <aside class="h-full w-16 flex flex-col space-y-10 items-center justify-center relative bg-gray-800 text-white">
         {/* Api Keys */}
         <button type="button" onClick={() => setShowApiKeyPopup(true)}>
-          <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                clip-rule="evenodd"
-              />
-            </svg>
+          <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
+            <TbKey size={28} />
           </div>
         </button>
 
         {/* Chats */}
-        <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-         
+        <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
+          <TbMessage size={28} />
         </div>
 
         {/* Settings */}
-        <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-            />
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-            />
-          </svg>
+        <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white hover:duration-300 hover:ease-linear focus:bg-white">
+          <TbSettings size={28} />
         </div>
       </aside>
 
@@ -165,7 +136,7 @@ function App() {
                   <option value="mistral">MistralAi</option>
                 </select>
               </div>
-              <Show when={selectedApi()}>
+             
                 <div class="text-center text-xl p-2">
                   <label for="model" class="text-white">
                     Select Model :{" "}
@@ -187,11 +158,12 @@ function App() {
                         <option value="mistral-tiny">Mistral Tiny</option>
                         <option value="mistral-small">Mistral Small</option>
                         <option value="mistral-medium">Mistral Medium</option>
+                        <option value="mistral-large-latest">Mistral Large</option>
                       </>
                     )}
                   </select>
                 </div>
-              </Show>
+          
             </div>
           </div>
         </header>
@@ -217,13 +189,12 @@ function App() {
                 />
               ))}
             </div>
-
           </div>
-            {/* Chat Input */}
-            <ChatInput
-              onNewMessage={sendMessageToBot}
-              selectedModel={selectedModel}
-            />
+          {/* Chat Input */}
+          <ChatInput
+            onNewMessage={sendMessageToBot}
+            selectedModel={selectedModel}
+          />
         </main>
       </div>
     </div>

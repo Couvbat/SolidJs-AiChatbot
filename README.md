@@ -9,6 +9,7 @@ Auteur : Jules Hemery
   - [Backend](#backend)
   - [Frontend](#frontend)
 - [Installation](#installation)
+  - [Pré-requis](#pré-requis)
 - [Scripts disponibles](#scripts-disponibles)
   - [`npm run dev`](#npm-run-dev)
   - [`npm run build`](#npm-run-build)
@@ -76,12 +77,12 @@ Le build est minifié et les noms de fichiers incluent les hashs.
 - [x] Basic chat functionality
 - [x] Save Api key in cookies
 - [x] Easy switch between models
+- [x] better ui
+- [ ] Full component extraction
 - [ ] model parameters
-- [ ] Saves chat history
-- [ ] delete chat history
+- [ ] Save/delete chat history
 - [ ] edit messages
 - [ ] multiple chat instances
-- [ ] class exctraction
-- [ ] better ui
+- [ ] Tailwind class exctraction
 
 Back-end ?
