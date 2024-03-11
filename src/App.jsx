@@ -1,5 +1,6 @@
-import { Show, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 import Cookies from "js-cookie";
+import { TbBrandSolidjs } from "solid-icons/tb";
 
 import ChatInput from "./components/ChatInput/ChatInput";
 import ChatMessage from "./components/ChatMessage/ChatMessage";
@@ -10,34 +11,24 @@ function App() {
     {
       role: "system",
       content:
-        "You are a Senior Web Dev ChatBot. You've been using web developpement for 20 years, using technologies like SolidJs, React, ReactNative, Laravel, TailwindCSS, SQL, NoSQL, in Javascript and PHP mostly. Your task is to answer questions i may ask you about code and help me develop features. When asked for code, you MUST provide the WHOLE code in a codeblock without skipping any parts.",
+        "You are a Senior Web Dev ChatBot. You've been using web development for 20 years, using technologies like SolidJs, React, ReactNative, Laravel, TailwindCSS, SQL, NoSQL, in Javascript and PHP mostly. Your task is to answer questions I may ask you about code and help me develop features. When asked for code, you MUST provide the WHOLE code in a code block without skipping any parts.",
     },
   ]);
+
+  const [showApiKeyPopup, setShowApiKeyPopup] = createSignal(true);
   const [apiKeys, setApiKeys] = createSignal({
-    openai: "",
-    mistral: "",
+    // This is the state for the API keys
+    openai: Cookies.get("openai_api_key") || "",
+    mistral: Cookies.get("mistral_api key") || "",
   });
+
+  // Callback function to be called from ApiKeyPopup
+  const handleApiKeysUpdated = (openaiApiKey, mistralApiKey) => {
+    setApiKeys({ openai: openaiApiKey, mistral: mistralApiKey });
+  };
 
   const [selectedApi, setSelectedApi] = createSignal();
   const [selectedModel, setSelectedModel] = createSignal();
-
-  // Load the API Keys from session storage on initialization
-  const loadApiKeys = () => {
-    const loadedKeys = {
-      openai: Cookies.get("openai_api_key") || "",
-      mistral: Cookies.get("mistral_api_key") || "",
-    };
-    setApiKeys(loadedKeys);
-    console.log("Loaded API keys:", loadedKeys);
-  };
-
-  // Save the API Keys in cookies
-  const saveApiKeys = (openaiKey, mistralKey) => {
-    Cookies.set("openai_api_key", openaiKey, { expires: 30 }); // expires after 30 days
-    Cookies.set("mistral_api_key", mistralKey, { expires: 30 }); // expires after 30 days
-    setApiKeys({ openai: openaiKey, mistral: mistralKey });
-    console.log("Saved API keys:", apiKeys());
-  };
 
   const getApiUrl = () => {
     return selectedApi() === "openai"
@@ -59,21 +50,27 @@ function App() {
       stream: false,
     };
 
+    const apiKey =
+      selectedApi() === "openai" ? apiKeys().openai : apiKeys().mistral;
+
+    // Check if the API key is defined and not an empty string
+    if (!apiKey || apiKey === "") {
+      console.error(
+        "API key is not set. Please set the API key before making a request."
+      );
+      return;
+    }
+
     try {
       console.log("Sending message to the bot:", requestPayload);
-      const response = await fetch(
-        getApiUrl(),
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${
-              selectedApi() === "openai" ? apiKeys().openai : apiKeys().mistral // Use the selected API key
-            }`,
-          },
-          body: JSON.stringify(requestPayload),
-        }
-      );
+      const response = await fetch(getApiUrl(), {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(requestPayload),
+      });
 
       if (response.ok) {
         // Handle the response from the AI model
@@ -94,45 +91,31 @@ function App() {
     }
   };
 
-  // Call loadApiKeys on first render
-  loadApiKeys();
-
   return (
     <div class="h-screen w-full relative flex overflow-hidden">
       {/* sidebar */}
       <aside class="h-full w-16 flex flex-col space-y-10 items-center justify-center relative bg-gray-800 text-white">
-        {/* profile */}
-        <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fill-rule="evenodd"
-              d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-              clip-rule="evenodd"
-            />
-          </svg>
-        </div>
+        {/* Api Keys */}
+        <button type="button" onClick={() => setShowApiKeyPopup(true)}>
+          <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
 
-        {/* chat */}
+        {/* Chats */}
         <div class="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-            />
-          </svg>
+         
         </div>
 
         {/* Settings */}
@@ -214,28 +197,33 @@ function App() {
         </header>
 
         {/* main */}
-        <main class="max-w-full h-full flex relative overflow-y-hidden">
-          <div class="h-full w-full m-4 flex flex-col justify-end overflow-y-scroll">
+        <main class="max-w-full h-full flex flex-col relative overflow-y-hidden">
+          <div class="h-full w-full flex flex-col justify-end overflow-y-scroll border border-white">
             {/* Api Key Popup */}
-            <Show when={!apiKeys().openai && !apiKeys().mistral}>
-              <ApiKeyPopup onSaveKeys={saveApiKeys} onClose={loadApiKeys} />
+            <Show when={showApiKeyPopup()}>
+              <ApiKeyPopup
+                setShowApiKeyPopup={setShowApiKeyPopup}
+                onApiKeyUpdate={handleApiKeysUpdated}
+              />
             </Show>
 
             {/* Chat Messages */}
-            {messages().map((message) => (
-              <ChatMessage
-                key={`${message.role}-${message.content}`}
-                content={message.content}
-                role={message.role}
-              />
-            ))}
+            <div class="overflow-y-auto max-h-[calc(100vh-16rem)]">
+              {messages().map((message) => (
+                <ChatMessage
+                  key={`${message.role}-${message.content}`}
+                  content={message.content}
+                  role={message.role}
+                />
+              ))}
+            </div>
 
+          </div>
             {/* Chat Input */}
             <ChatInput
               onNewMessage={sendMessageToBot}
               selectedModel={selectedModel}
             />
-          </div>
         </main>
       </div>
     </div>

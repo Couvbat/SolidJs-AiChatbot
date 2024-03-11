@@ -4,7 +4,7 @@ import { SolidMarkdown } from "solid-markdown";
 
 const ChatMessage = (props) => {
 
-  const messageClass = `text-white whitespace-pre-wrap border rounded-md m-4 p-2 shadow-ms ${
+  const messageClass = `text-white whitespace-pre-wrap border rounded-md my-4 mx-16 p-2 shadow-ms ${
     props.role === "user" ? "bg-slate-500 self-end" : "bg-slate-800 self-start"
   }`;
 
